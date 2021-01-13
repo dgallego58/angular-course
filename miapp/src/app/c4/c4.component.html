@@ -1,0 +1,16 @@
+<p *ngFor="let persona of personas" (mouseenter)="seleccionarPersona(persona)">
+    {{persona.nombre}} {{persona.apellidos}} {{persona.edad}} {{persona.informatico}} {{persona.lenguaje}}
+    <input type="checkbox" name="informatico" [(ngModel)]="persona.informatico"/>
+
+    <!--Grupo de radios comparte en nombre por cada iteración, y eso los hace excluyentes-->
+    <input type="radio" value="Java" [name]="persona.nombre" [(ngModel)]="persona.lenguaje"/>Java
+    <input type="radio" value="C#" [name]="persona.nombre" [(ngModel)]="persona.lenguaje"/>C#
+    <input type="radio" value="Python" [name]="persona.nombre" [(ngModel)]="persona.lenguaje"/>Python
+
+</p>
+
+<p>
+  Las listas son: {{personas[0].nombre}}
+  <br>
+  La persona Seleccionada es {{seleccionada?.nombre}} {{seleccionada?.apellidos}} {{seleccionada?.informatico}} {{seleccionada?.lenguaje}}
+</p>

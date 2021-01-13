@@ -1,0 +1,6 @@
+<select [(ngModel)]="seleccion">
+  <option *ngFor="let item of lista" [value]="item">
+      {{item}}
+  </option>
+</select>
+{{seleccion}}

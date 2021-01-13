@@ -1,0 +1,13 @@
+<!-- Interpolation-->
+<p>Hola {{nombre}}</p>
+<!-- property binding-->
+<img [src]="paisaje"/>
+<p>{{contador}}</p>
+<input class="botonesBonitos" type="button" value="+" (click)="incrementar()"/>
+<input class="botonesBonitos" type="button" value="-" (click)="decrementar()"/>
+
+<ul>
+    <li>{{persona.nombre}}</li>
+    <li>{{persona.apellidos}}</li>
+    <li>{{persona.edad}}</li>
+</ul>
