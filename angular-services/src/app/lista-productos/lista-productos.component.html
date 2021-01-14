@@ -1,3 +1,10 @@
+<form>
+
+
+  <input type="text" [(ngModel)]="filtroConcepto" name="concepto" />
+
+</form>
+
 <table>
   <thead>
     <th>ID</th>
@@ -5,11 +12,43 @@
     <th>Importe</th>
   </thead>
   <tbody>
-    <tr *ngFor="let producto of lista">
-      <td>{{ producto.id }}</td>
-      <td>{{ producto.concepto }}</td>
-      <td>{{ producto.importe }}</td>
-      <td><input type="button" value="borrar" (click)="borrar(producto)"/></td>
+    <tr *ngFor="let producto of listaFiltrada">
+      <ng-container *ngIf="productoEditado!=producto">
+
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.concepto }}</td>
+        <td>{{ producto.importe }}</td>
+        <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
+        <td *ngIf="productoEditado != producto"><input type="button" value="editar" (click)="updateProduct(producto)" />
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="productoEditado==producto">
+
+        <td><input type="text" name="id" [(ngModel)]="producto.id"></td>
+        <td><input type="text" name="concepto" [(ngModel)]="producto.concepto"></td>
+        <td><input type="text" name="importe" [(ngModel)]="producto.importe"></td>
+        <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
+        <td *ngIf="productoEditado == producto"><input type="button" value="salvar"
+            (click)="updateProduct(producto)" />
+        </td>
+      </ng-container>
+
+
     </tr>
   </tbody>
 </table>
+
+<form>
+  <span>
+    <input type="text" [(ngModel)]="productoNuevo.id" name="id" pattern="[0-9]+" required="required" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoNuevo.concepto" name="concepto" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoNuevo.importe" name="importe" pattern="[0-9]+" required="required" />
+  </span>
+
+  <input type="button" value="insert" (click)="addProduct(productoNuevo)" />
+</form>

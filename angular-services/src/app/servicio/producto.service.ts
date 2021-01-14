@@ -18,9 +18,13 @@ export class ProductoService {
     return this.lista;
   }
 
-  public deleteById(producto: Producto): void {
+  public deleteProduct(producto: Producto): void {
     let indice = this.lista.indexOf(producto);
     this.lista.splice(indice, 1);
+  }
+
+  public addProduct(producto: Producto): void {
+    this.lista.push(producto);
   }
 
 }
