@@ -1,0 +1,15 @@
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Concepto</th>
+    <th>Importe</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of lista">
+      <td>{{ producto.id }}</td>
+      <td>{{ producto.concepto }}</td>
+      <td>{{ producto.importe }}</td>
+      <td><input type="button" value="borrar" (click)="borrar(producto)"/></td>
+    </tr>
+  </tbody>
+</table>

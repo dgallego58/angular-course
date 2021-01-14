@@ -13,7 +13,7 @@ export class C4Component implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.personas.push(new Persona("Elver", "Galarga", 30, true, "Java"), new Persona("Masimo", "Cabrera", 25, false, "C#"), new Persona("Elma", "Gono", 23, true, "Python"));
+    this.personas.push(new Persona("Elver", "Galarga", 30, true, "Java"), new Persona("Masimo", "Tasimo", 25, false, "C#"), new Persona("Elma", "Frodo", 23, true, "Python"));
 
   }
 
