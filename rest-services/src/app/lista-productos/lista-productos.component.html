@@ -12,14 +12,14 @@
     <th>Importe</th>
   </thead>
   <tbody>
-    <tr *ngFor="let producto of listaFiltrada">
+    <tr *ngFor="let producto of lista">
       <ng-container *ngIf="productoEditado!=producto">
 
         <td>{{ producto.id }}</td>
         <td>{{ producto.concepto }}</td>
         <td>{{ producto.importe }}</td>
         <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
-        <td *ngIf="productoEditado != producto"><input type="button" value="editar" (click)="updateProduct(producto); productoEditado=null" />
+        <td *ngIf="productoEditado != producto"><input type="button" value="editar" (click)="updateProduct(producto)" />
         </td>
       </ng-container>
 
@@ -30,7 +30,7 @@
         <td><input type="text" name="importe" [(ngModel)]="producto.importe"></td>
         <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
         <td *ngIf="productoEditado == producto"><input type="button" value="salvar"
-            (click)="updateProduct(producto); productoEditado=null" />
+            (click)="updateProduct(producto)" />
         </td>
       </ng-container>
 
