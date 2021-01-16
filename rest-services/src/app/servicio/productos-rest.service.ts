@@ -25,7 +25,9 @@ export class ProductosRestService {
   }
 
   public updateProduct(producto: Producto): Observable<Producto> {
-    console.log(`this is a log, product send is: ${producto}`);
+    // tslint:disable-next-line: no-bitwise
+    const jsonString = JSON.stringify(producto, null, 4);
+    console.log(`In ProductosRestService, product send is: ${jsonString}`);
     return this.http.put<Producto>(`http://localhost:3000/productos/${producto.id}`, producto);
   }
 }

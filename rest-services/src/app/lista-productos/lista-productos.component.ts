@@ -12,12 +12,11 @@ export class ListaProductosComponent implements OnInit {
   lista: Producto[] = [];
   productoNuevo: Producto;
   productoEditado!: Producto;
-  filtroConcepto: string = "";
+  filtroConcepto = '';
 
   constructor(public servicio: ProductosRestService) {
     //this.lista = servicio.findAll();
-    this.productoNuevo = new Producto(0, "", 0);
-
+    this.productoNuevo = new Producto(0, '', 0);
   }
 
   ngOnInit(): void {
@@ -49,16 +48,18 @@ export class ListaProductosComponent implements OnInit {
   }
 
 
-  updateProduct(producto: Producto): void {
-    console.log('before a salvar el producto %0', producto);
+  productToSend(producto: Producto): void {
     this.productoEditado = producto;
+  }
 
+  updateProduct(producto: Producto): void {
     console.log('vamos a salvar el producto %0', producto);
+
     this.servicio.updateProduct(producto)
       .pipe(
         mergeMap(p => this.servicio.findAll())
       ).subscribe(data => {
-        console.log(`login stuff ${data[0]}`);
+        console.log(`login stuff ${JSON.stringify(data, null, 4)}`);
         this.lista = data;
       });
   }

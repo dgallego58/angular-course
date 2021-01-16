@@ -3,6 +3,7 @@
   <input type="checkbox" name="informatico" [(ngModel)]="persona.informatico" />
 
   <!--Grupo de radios comparte en nombre por cada iteración, y eso los hace excluyentes-->
+  <!--El tag [name] hace referencia al formulario dentro de ngModel-->
   <input type="radio" value="Java" [name]="persona.nombre" [(ngModel)]="persona.lenguaje" />Java
   <input type="radio" value="C#" [name]="persona.nombre" [(ngModel)]="persona.lenguaje" />C#
   <input type="radio" value="Python" [name]="persona.nombre" [(ngModel)]="persona.lenguaje" />Python

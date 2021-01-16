@@ -19,8 +19,7 @@
         <td>{{ producto.concepto }}</td>
         <td>{{ producto.importe }}</td>
         <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
-        <td *ngIf="productoEditado != producto"><input type="button" value="editar" (click)="updateProduct(producto)" />
-        </td>
+        <td><input type="button" value="editar" (click)="productToSend(producto)" /></td>
       </ng-container>
 
       <ng-container *ngIf="productoEditado==producto">
@@ -29,9 +28,7 @@
         <td><input type="text" name="concepto" [(ngModel)]="producto.concepto"></td>
         <td><input type="text" name="importe" [(ngModel)]="producto.importe"></td>
         <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
-        <td *ngIf="productoEditado == producto"><input type="button" value="salvar"
-            (click)="updateProduct(producto)" />
-        </td>
+        <td><input type="button" value="salvar" (click)="updateProduct(producto);productoEditado=null" /></td>
       </ng-container>
 
     </tr>
