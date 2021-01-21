@@ -17,6 +17,19 @@ app.get('/productos', (req, res) => {
 })
 
 
+app.get('/productos/filtro', function (req, resp) {
+  resp.send(lista);
+})
+
+app.get('/productos/filtro/:concepto', function (req, resp) {
+
+  let listaFiltrada = lista.filter(function (item) {
+    return item.concepto.startsWith(req.params.concepto);
+  });
+  resp.send(listaFiltrada);
+})
+
+
 app.delete('/productos/:id', function (req, res) {
 
   console.log("Delete product will be: " + req.path);
@@ -35,29 +48,23 @@ app.delete('/productos/:id', function (req, res) {
 
 })
 
-
 app.post('/productos', function (req, res) {
   lista.push(req.body);
   res.status(201).send();
 })
 
-
 app.put('/productos/:id', function (req, res) {
 
   var bodyReq = req.body;
-  console.log(`to be updated is ${bodyReq}`)
+  console.log(`to be updated is ${JSON.stringify(bodyReq)}`)
   let toBeUpdated = lista.filter(function (product) {
     return product.id == bodyReq.id;
   })[0];
-
   //esta es el update
   let indice = lista.indexOf(toBeUpdated);
   lista[indice] = bodyReq;
-
-
   res.status(200).send();
 })
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

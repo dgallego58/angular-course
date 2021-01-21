@@ -30,4 +30,11 @@ export class ProductosRestService {
     console.log(`In ProductosRestService, product send is: ${jsonString}`);
     return this.http.put<Producto>(`http://localhost:3000/productos/${producto.id}`, producto);
   }
+
+  public findByConcepto(concepto: string): Observable<Producto[]> {
+
+    return this.http.get<Producto[]>(`http://localhost:3000/productos/filtro/${concepto}`);
+
+  }
+
 }

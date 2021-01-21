@@ -1,7 +1,8 @@
 import { ProductosRestService } from './../servicio/productos-rest.service';
 import { Producto } from './../dominio/producto';
 import { Component, OnInit } from '@angular/core';
-import { mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'app-lista-productos',
   templateUrl: './lista-productos.component.html',
@@ -11,12 +12,28 @@ export class ListaProductosComponent implements OnInit {
 
   lista: Producto[] = [];
   productoNuevo: Producto;
-  productoEditado!: Producto;
+  productoEditado: Producto;
   filtroConcepto = '';
+
+  //pulsaste
+  keyUP = new Subject<KeyboardEvent>();
 
   constructor(public servicio: ProductosRestService) {
     //this.lista = servicio.findAll();
     this.productoNuevo = new Producto(0, '', 0);
+    this.productoEditado = new Producto(0, '', 0);
+    this.keyUP.pipe(
+      map((event: any) => {
+        return event.target.value;
+      })).pipe(
+        mergeMap(texto => {
+          //peticion asincrona
+          //es peculiar
+          return this.servicio.findByConcepto(texto);
+        })
+      ).subscribe(datos => {
+        this.lista = datos;
+      })
   }
 
   ngOnInit(): void {
@@ -26,6 +43,8 @@ export class ListaProductosComponent implements OnInit {
       this.lista = datos;
     });
   }
+
+
 
 
   borrarProducto(producto: Producto): void {

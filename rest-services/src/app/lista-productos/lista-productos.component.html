@@ -1,7 +1,7 @@
 <form>
 
 
-  <input type="text" [(ngModel)]="filtroConcepto" name="concepto" />
+  <input type="text" [(ngModel)]="filtroConcepto" name="concepto" (keyup)="keyUP.next($event)" />
 
 </form>
 
@@ -28,7 +28,7 @@
         <td><input type="text" name="concepto" [(ngModel)]="producto.concepto"></td>
         <td><input type="text" name="importe" [(ngModel)]="producto.importe"></td>
         <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
-        <td><input type="button" value="salvar" (click)="updateProduct(producto);productoEditado=null" /></td>
+        <td><input type="button" value="salvar" (click)="updateProduct(producto)" /></td>
       </ng-container>
 
     </tr>
