@@ -1,0 +1,42 @@
+<form>
+
+
+  <input type="text" [(ngModel)]="filtroConcepto" name="concepto" (keyup)="keyUP.next($event)" />
+
+</form>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Concepto</th>
+    <th>Importe</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of lista">
+      <ng-container *ngIf="productoEditado!=producto">
+
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.concepto }}</td>
+        <td>{{ producto.importe }}</td>
+        <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
+        <td><input type="button" value="Edicion Rapida" (click)="productToSend(producto)" /></td>
+        <td><input type="button" value="detalle" (click)="detalleProducto(producto)" /></td>
+        <td><input type="button" value="edicion" (click)="editar2(producto)"/></td>
+      </ng-container>
+
+      <ng-container *ngIf="productoEditado==producto">
+
+        <td><input type="text" name="id" [(ngModel)]="producto.id"></td>
+        <td><input type="text" name="concepto" [(ngModel)]="producto.concepto"></td>
+        <td><input type="text" name="importe" [(ngModel)]="producto.importe"></td>
+        <td><input type="button" value="borrar" (click)="borrarProducto(producto)" /></td>
+        <td><input type="button" value="salvar" (click)="updateProduct(producto)" /></td>
+
+      </ng-container>
+
+    </tr>
+  </tbody>
+</table>
+
+<!-- el router admite muchas parametrizaciones-->
+<a [routerLink]="['/formulario']">nuevo</a>

@@ -1,0 +1,13 @@
+<form>
+  <span>
+    <input type="text" [(ngModel)]="productoNuevo.id" name="id" pattern="[0-9]+" required="required" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoNuevo.concepto" name="concepto" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoNuevo.importe" name="importe" pattern="[0-9]+" required="required" />
+  </span>
+
+  <input type="button" value="insert" (click)="addProduct(productoNuevo)" />
+</form>

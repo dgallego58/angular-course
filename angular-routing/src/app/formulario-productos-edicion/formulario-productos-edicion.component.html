@@ -1,0 +1,16 @@
+<form>
+  <span>
+    <input type="text" [(ngModel)]="productoEditar.id" name="id" pattern="[0-9]+" required="required" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoEditar.concepto" name="concepto" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoEditar.importe" name="importe" pattern="[0-9]+" required="required" />
+  </span>
+  <span>
+    <input type="text" [(ngModel)]="productoEditar.categoria" name="categoria" pattern="[0-9]+" required="required" />
+  </span>
+
+  <input type="button" value="salvar" (click)="updateProduct(productoEditar)" />
+</form>
