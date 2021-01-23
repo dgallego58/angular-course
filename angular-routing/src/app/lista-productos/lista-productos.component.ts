@@ -40,7 +40,7 @@ export class ListaProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.servicio.findAll().subscribe(datos => {
+    this.servicio.buscarTodos().subscribe(datos => {
 
       console.log(datos);
       this.lista = datos;
@@ -58,9 +58,10 @@ export class ListaProductosComponent implements OnInit {
 
   borrarProducto(producto: Producto): void {
     //lo que quiero invoco otro observable
-    this.servicio.deleteProduct(producto)
+    let prodId: string = producto.id!.toString();
+    this.servicio.borrar(prodId)
       .pipe(
-        mergeMap(o => this.servicio.findAll())
+        mergeMap(o => this.servicio.buscarTodos())
       )
       .subscribe(datos => {
         console.log('elemento borrado');
@@ -69,20 +70,43 @@ export class ListaProductosComponent implements OnInit {
   }
 
 
-  productToSend(producto: Producto): void {
+  edicionRapida(producto: Producto): void {
     this.productoEditado = producto;
   }
 
   updateProduct(producto: Producto): void {
     console.log('vamos a salvar el producto %0', producto);
 
-    this.servicio.updateProduct(producto)
+    this.servicio.actualizar(producto, producto.id!.toString())
       .pipe(
-        mergeMap(p => this.servicio.findAll())
+        mergeMap(p => this.servicio.buscarTodos())
       ).subscribe(data => {
         console.log(`login stuff ${JSON.stringify(data, null, 4)}`);
         this.lista = data;
       });
+  }
+
+
+  //eventos output
+  borrarProductoEvento(producto: Producto): void {
+    console.log(producto);
+    this.borrarProducto(producto);
+  }
+
+  detalleProductoEvento(producto: Producto): void {
+    this.detalleProducto(producto);
+  }
+
+  edicionRapidaEvento(producto: Producto): void {
+    this.edicionRapida(producto);
+  }
+
+  edicion2Evento(producto: Producto): void {
+    this.editar2(producto);
+  }
+
+  salvarProductoEvento(producto: Producto): void {
+    this.updateProduct(producto);
   }
 
 }

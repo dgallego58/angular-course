@@ -7,6 +7,8 @@ import { Producto } from '../dominio/producto';
 })
 export class ProductoService {
 
+
+  //NO REST SERVICE
   lista: Producto[] = [];
   productoToBeDeleted!: Producto;
 

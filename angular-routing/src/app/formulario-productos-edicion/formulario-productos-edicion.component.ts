@@ -19,7 +19,8 @@ export class FormularioProductosEdicionComponent implements OnInit {
 
     this.route.paramMap.subscribe(parameters => {
 
-      this.servicioProductoRest.findById(parameters.get('id')).subscribe(data => {
+      let id = parameters.get('id') || '1';
+      this.servicioProductoRest.buscarUnoPorId(id).subscribe(data => {
         this.productoEditar = data;
       })
     });
@@ -29,8 +30,8 @@ export class FormularioProductosEdicionComponent implements OnInit {
 
   updateProduct(producto: Producto): void {
     console.log('vamos a salvar el producto %0', producto);
-
-    this.servicioProductoRest.updateProduct(this.productoEditar).subscribe(data => {
+    let prodId: string = producto.id!.toString();
+    this.servicioProductoRest.actualizar(this.productoEditar, prodId).subscribe(data => {
       console.log(`login stuff ${JSON.stringify(data, null, 4)}`);
       this.router.navigate(['/lista']);
     });

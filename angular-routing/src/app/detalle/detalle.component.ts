@@ -21,7 +21,9 @@ export class DetalleComponent implements OnInit {
 
     this.route.paramMap.subscribe((parameters) => {
 
-      this.servicioProductoRest.findById(parameters.get('id')).subscribe((data) => {
+      let idProduct = parameters.get('id') || '1';
+
+      this.servicioProductoRest.buscarUnoPorId(idProduct).subscribe((data) => {
         this.producto = data;
       })
     });

@@ -21,7 +21,7 @@ export class FormularioProductosComponent implements OnInit {
 
 
   addProduct(producto: Producto): void {
-    this.servicio.createInsert(producto).subscribe(
+    this.servicio.insertar(producto).subscribe(
       () => this.router.navigate(['/lista']));
   }
 
