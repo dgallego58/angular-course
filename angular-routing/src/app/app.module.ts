@@ -12,6 +12,21 @@ import { FormularioProductosEdicionComponent } from './formulario-productos-edic
 import { ErrorComponent } from './error/error.component';
 import { IvaPipe } from './iva.pipe';
 import { FilaProductoComponent } from './fila-producto/fila-producto.component';
+import { LoginComponent } from './login/login.component';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JwtTokenService } from './servicio/jwt-token.service';
+
+
+export function jwtOptionsFactory(tokenService : JwtTokenService) {
+  return {
+    tokenGetter: () =>{
+      return tokenService.token
+    },
+    allowedDomains: ['localhost:3000'],
+    disallowedRoutes: ['localhost:3000/login']
+  }
+}
+
 
 @NgModule({
   declarations: [
@@ -22,15 +37,23 @@ import { FilaProductoComponent } from './fila-producto/fila-producto.component';
     FormularioProductosEdicionComponent,
     ErrorComponent,
     IvaPipe,
-    FilaProductoComponent
+    FilaProductoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider:{
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [JwtTokenService]
+      }
+    })
   ],
-  providers: [],
+  providers: [JwtTokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,14 +5,17 @@ import { ErrorComponent } from './error/error.component';
 import { FormularioProductosEdicionComponent } from './formulario-productos-edicion/formulario-productos-edicion.component';
 import { FormularioProductosComponent } from './formulario-productos/formulario-productos.component';
 import { ListaProductosComponent } from './lista-productos/lista-productos.component';
+import { LoginComponent } from './login/login.component';
+
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: 'lista', component: ListaProductosComponent },
   { path: 'formulario', component: FormularioProductosComponent },
   { path: 'detalle/:id', component: DetalleComponent },
   { path: 'formularioEdicion/:id', component: FormularioProductosEdicionComponent },
-  { path: '', redirectTo: '/lista', pathMatch: 'full' },
   { path: 'error', component: ErrorComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/error', pathMatch: 'full' }
 
 ];

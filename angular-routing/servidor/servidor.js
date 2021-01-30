@@ -4,6 +4,10 @@ const port = 3000;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const jwt = require("jsonwebtoken");
+const expressJwt = require("express-jwt");
+
+app.use(expressJwt({ secret: 'superclave', algorithms: ['HS256'] }).unless({ path: ['/login'] }));
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -80,3 +84,18 @@ app.put("/productos/:id", function (req, res) {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+app.post("/login", function (req, res) {
+
+  //datos del usuario en formato json desde la página
+  const usuario = req.body;
+  if (usuario.nombre == "david" && usuario.clave == "test") {
+    //genero token
+    var token = jwt.sign({ id: usuario.nombre }, 'superclave', { expiresIn: '2h' });
+    res.send({ token });
+  } else {
+    //no hay acceso
+    res.sendStatus(401);
+  }
+
+})
