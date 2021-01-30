@@ -9,10 +9,9 @@ import { Producto } from '../dominio/producto';
 @Component({
   selector: 'app-lista-productos',
   templateUrl: './lista-productos.component.html',
-  styleUrls: ['./lista-productos.component.css']
+  styleUrls: ['./lista-productos.component.css'],
 })
 export class ListaProductosComponent implements OnInit {
-
   lista: Producto[] = [];
 
   productoEditado: Producto;
@@ -25,23 +24,26 @@ export class ListaProductosComponent implements OnInit {
     //this.lista = servicio.findAll();
 
     this.productoEditado = new Producto(0, '', 0, '');
-    this.keyUP.pipe(
-      map((event: any) => {
-        return event.target.value;
-      })).pipe(
-        mergeMap(texto => {
+    this.keyUP
+      .pipe(
+        map((event: any) => {
+          return event.target.value;
+        })
+      )
+      .pipe(
+        mergeMap((texto) => {
           //peticion asincrona
           //es peculiar
           return this.servicio.findByConcepto(texto);
         })
-      ).subscribe(datos => {
+      )
+      .subscribe((datos) => {
         this.lista = datos;
-      })
+      });
   }
 
   ngOnInit(): void {
-    this.servicio.buscarTodos().subscribe(datos => {
-
+    this.servicio.buscarTodos().subscribe((datos) => {
       console.log(datos);
       this.lista = datos;
     });
@@ -51,7 +53,6 @@ export class ListaProductosComponent implements OnInit {
     this.router.navigate(['detalle', producto.id]);
   }
 
-
   editar2(producto: Producto) {
     this.router.navigate(['formularioEdicion', producto.id]);
   }
@@ -59,16 +60,14 @@ export class ListaProductosComponent implements OnInit {
   borrarProducto(producto: Producto): void {
     //lo que quiero invoco otro observable
     let prodId: string = producto.id!.toString();
-    this.servicio.borrar(prodId)
-      .pipe(
-        mergeMap(o => this.servicio.buscarTodos())
-      )
-      .subscribe(datos => {
+    this.servicio
+      .borrar(prodId)
+      .pipe(mergeMap(() => this.servicio.buscarTodos()))
+      .subscribe((datos) => {
         console.log('elemento borrado');
         this.lista = datos;
       });
   }
-
 
   edicionRapida(producto: Producto): void {
     this.productoEditado = producto;
@@ -77,15 +76,14 @@ export class ListaProductosComponent implements OnInit {
   updateProduct(producto: Producto): void {
     console.log('vamos a salvar el producto %0', producto);
 
-    this.servicio.actualizar(producto, producto.id!.toString())
-      .pipe(
-        mergeMap(p => this.servicio.buscarTodos())
-      ).subscribe(data => {
+    this.servicio
+      .actualizar(producto, producto.id!.toString())
+      .pipe(mergeMap(() => this.servicio.buscarTodos()))
+      .subscribe((data) => {
         console.log(`login stuff ${JSON.stringify(data, null, 4)}`);
         this.lista = data;
       });
   }
-
 
   //eventos output
   borrarProductoEvento(producto: Producto): void {
@@ -108,5 +106,4 @@ export class ListaProductosComponent implements OnInit {
   salvarProductoEvento(producto: Producto): void {
     this.updateProduct(producto);
   }
-
 }

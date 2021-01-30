@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = 3000;
 const cors = require("cors");
@@ -9,40 +9,42 @@ app.use(bodyParser.json());
 
 let lista = [];
 
-lista.push({ "id": "3", "concepto": "auriculares", "importe": "200", "categoria": "Informática" });
-lista.push({ "id": "4", "concepto": "patines", "importe": "300", "categoria": "Deportes" });
+lista.push({
+  id: "3",
+  concepto: "auriculares",
+  importe: "200",
+  categoria: "Informática",
+});
+lista.push({
+  id: "4",
+  concepto: "patines",
+  importe: "300",
+  categoria: "Deportes",
+});
 
-app.get('/productos', (req, res) => {
-  res.send(lista)
-})
+app.get("/productos", (req, res) => {
+  res.send(lista);
+});
 
-
-app.get('/productos/filtro', function (req, resp) {
+app.get("/productos/filtro", function (req, resp) {
   resp.send(lista);
-})
+});
 
-
-app.get('/productos/:id', function (req, resp) {
-
+app.get("/productos/:id", function (req, resp) {
   let listaFiltrada = lista.filter(function (item) {
     return item.id == req.params.id;
   });
   resp.send(listaFiltrada[0]);
-})
+});
 
-
-
-app.get('/productos/filtro/:concepto', function (req, resp) {
-
+app.get("/productos/filtro/:concepto", function (req, resp) {
   let listaFiltrada = lista.filter(function (item) {
     return item.concepto.startsWith(req.params.concepto);
   });
   resp.send(listaFiltrada);
-})
+});
 
-
-app.delete('/productos/:id', function (req, res) {
-
+app.delete("/productos/:id", function (req, res) {
   console.log("Delete product will be: " + req.path);
   //selecciono el elemento a borrar
   let seleccionado = lista.filter(function (elemento) {
@@ -56,18 +58,16 @@ app.delete('/productos/:id', function (req, res) {
   lista.splice(indice, 1);
   //envío el status code
   res.status(204).send();
+});
 
-})
-
-app.post('/productos', function (req, res) {
+app.post("/productos", function (req, res) {
   lista.push(req.body);
   res.status(201).send();
-})
+});
 
-app.put('/productos/:id', function (req, res) {
-
+app.put("/productos/:id", function (req, res) {
   var bodyReq = req.body;
-  console.log(`to be updated is ${JSON.stringify(bodyReq)}`)
+  console.log(`to be updated is ${JSON.stringify(bodyReq)}`);
   let toBeUpdated = lista.filter(function (product) {
     return product.id == bodyReq.id;
   })[0];
@@ -75,8 +75,8 @@ app.put('/productos/:id', function (req, res) {
   let indice = lista.indexOf(toBeUpdated);
   lista[indice] = bodyReq;
   res.status(200).send();
-})
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});

@@ -5,10 +5,9 @@ import { Producto } from '../dominio/producto';
 import { RESTService } from './rest.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ProductosRestService extends RESTService<Producto> {
-
+export class ProductosRestService extends RESTService<Producto, String> {
   constructor(public http: HttpClient) {
     super('productos', http);
   }
@@ -16,7 +15,4 @@ export class ProductosRestService extends RESTService<Producto> {
   public findByConcepto(concepto: string): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.url}/filtro/${concepto}`);
   }
-
-
-
 }

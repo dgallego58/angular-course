@@ -10,9 +10,6 @@ export class FilaProductoComponent implements OnInit {
 
 
   //no pertenencen realmente a este componente sino al componente padre
-  //no pertenencen realmente a este componente sino al componente padre
-
-
   @Input()
   productoEditado?: Producto;
   @Input()

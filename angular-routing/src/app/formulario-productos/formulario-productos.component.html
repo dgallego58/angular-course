@@ -1,7 +1,8 @@
-<form>
+<form novalidate (ngSubmit)="miForm.form.valid && addProduct(productoNuevo)" #miForm="ngForm">
   <span>
-    <input type="text" [(ngModel)]="productoNuevo.id" name="id" pattern="[0-9]+" required="required" />
+    <input type="text" id="elId" [(ngModel)]="productoNuevo.id" name="id" pattern="[0-9]+" required #id="ngModel" />
   </span>
+  <div class="error" *ngIf="id.errors?.required">El campo ID es obligatorio</div>
   <span>
     <input type="text" [(ngModel)]="productoNuevo.concepto" name="concepto" />
   </span>
@@ -9,5 +10,6 @@
     <input type="text" [(ngModel)]="productoNuevo.importe" name="importe" pattern="[0-9]+" required="required" />
   </span>
 
-  <input type="button" value="insert" (click)="addProduct(productoNuevo)" />
+  <input type="submit" value="insert" /><!-- se cambia el tipo button por submit para validación-->
+  <!--(click)="addProduct(productoNuevo)"-->
 </form>
